@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Crumble & Co — Artisan Bakery. Handcrafted breads, pastries, cakes and seasonal treats baked fresh every morning."/>
+<title>Crumble & Co — Artisan Bakery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ============================================================
+   ROOT & RESET
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --flour:    #fdf8f0;
+  --cream:    #f5ead6;
+  --cream2:   #ede0c4;
+  --butter:   #e8c87a;
+  --honey:    #c9943a;
+  --caramel:  #a0622a;
+  --espresso: #3d2010;
+  --bark:     #2a1508;
+  --warm-mid: #7a4a28;
+  --muted:    #a08060;
+  --border:   rgba(160,98,42,0.18);
+  --shadow:   rgba(61,32,16,0.12);
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-serif:   'Lora', Georgia, serif;
+  --font-body:    'Nunito', sans-serif;
+  --ease:  cubic-bezier(0.16,1,0.3,1);
+  --ease2: cubic-bezier(0.4,0,0.2,1);
+  --radius: 2px;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font-body);background:var(--flour);color:var(--espresso);line-height:1.7;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{display:block;width:100%;object-fit:cover}
+button{font-family:var(--font-body);cursor:pointer;border:none;outline:none}
+input,select,textarea{font-family:var(--font-body);font-size:16px!important}
+@media(hover:none){#cursor{display:none!important}body{cursor:auto}}
+
+/* ============================================================
+   CUSTOM CURSOR
+   ============================================================ */
+#cursor{position:fixed;top:0;left:0;z-index:9999;pointer-events:none}
+#cdot{width:10px;height:10px;border-radius:50%;background:var(--honey);position:absolute;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s}
+#cring{width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(201,148,58,.5);position:absolute;transform:translate(-50%,-50%);transition:width .35s var(--ease),height .35s var(--ease)}
+body.ch #cdot{width:14px;height:14px;background:var(--caramel)}
+body.ch #cring{width:54px;height:54px}
+
+/* ============================================================
+   LOADER
+   ============================================================ */
+#loader{position:fixed;inset:0;z-index:10000;background:var(--flour);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.8rem;transition:opacity 1s,visibility 1s}
+#loader.done{opacity:0;visibility:hidden}
+.loader-icon{font-size:3.5rem;animation:loaderBounce 1.2s ease infinite}
+@keyframes loaderBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.loader-name{font-family:var(--font-display);font-size:2rem;color:var(--espresso);letter-spacing:.06em;animation:loaderFade 1.5s ease infinite}
+@keyframes loaderFade{0%,100%{opacity:.5}50%{opacity:1}}
+.loader-sub{font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
+.loader-dots{display:flex;gap:.5rem}
+.loader-dots span{width:8px;height:8px;border-radius:50%;background:var(--butter);animation:dotBounce 1.2s ease infinite}
+.loader-dots span:nth-child(2){animation-delay:.15s}
+.loader-dots span:nth-child(3){animation-delay:.3s}
+@keyframes dotBounce{0%,100%{transform:translateY(0);opacity:.4}50%{transform:translateY(-8px);opacity:1}}
+
+/* ============================================================
+   SCROLL ANIMATIONS
+   ============================================================ */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
+.reveal.on{opacity:1;transform:translateY(0)}
+.reveal-l{opacity:0;transform:translateX(-48px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
+.reveal-l.on{opacity:1;transform:translateX(0)}
+.reveal-r{opacity:0;transform:translateX(48px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
+.reveal-r.on{opacity:1;transform:translateX(0)}
+.stag>*{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.stag.on>*:nth-child(1){opacity:1;transform:none;transition-delay:.04s}
+.stag.on>*:nth-child(2){opacity:1;transform:none;transition-delay:.13s}
+.stag.on>*:nth-child(3){opacity:1;transform:none;transition-delay:.22s}
+.stag.on>*:nth-child(4){opacity:1;transform:none;transition-delay:.31s}
+.stag.on>*:nth-child(5){opacity:1;transform:none;transition-delay:.40s}
+.stag.on>*:nth-child(6){opacity:1;transform:none;transition-delay:.49s}
+.stag.on>*:nth-child(7){opacity:1;transform:none;transition-delay:.58s}
+.stag.on>*:nth-child(8){opacity:1;transform:none;transition-delay:.67s}
+
+/* ============================================================
+   SHARED
+   ============================================================ */
+.section{padding:7rem 5rem}
+.inner{max-width:1200px;margin:0 auto}
+.eyebrow{font-size:.72rem;letter-spacing:.38em;text-transform:uppercase;color:var(--honey);margin-bottom:.7rem;font-weight:600}
+.sec-title{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.8rem);font-weight:500;line-height:1.1;color:var(--espresso);margin-bottom:1.2rem}
+.sec-title em{font-style:italic;color:var(--caramel)}
+.divider{display:flex;align-items:center;gap:1rem;margin:1.4rem 0}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,var(--cream2))}
+.divider::after{background:linear-gradient(to left,transparent,var(--cream2))}
+.divider-icon{color:var(--butter);font-size:.85rem}
+.btn-warm{display:inline-block;background:var(--caramel);color:var(--flour);padding:.95rem 2.4rem;font-size:.78rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;border-radius:var(--radius);transition:background .3s,transform .2s,box-shadow .3s;position:relative;overflow:hidden}
+.btn-warm:hover{background:var(--espresso);transform:translateY(-2px);box-shadow:0 12px 35px rgba(160,98,42,.35)}
+.btn-outline-warm{display:inline-block;border:1.5px solid var(--caramel);color:var(--caramel);padding:.95rem 2.4rem;font-size:.78rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;border-radius:var(--radius);transition:all .3s;background:transparent}
+.btn-outline-warm:hover{background:var(--caramel);color:var(--flour)}
+.tag{display:inline-block;background:rgba(232,200,122,.2);border:1px solid rgba(201,148,58,.3);color:var(--caramel);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;padding:.28rem .75rem;border-radius:20px;font-weight:600}
+.toast{position:fixed;bottom:2rem;right:2rem;z-index:8000;background:var(--espresso);padding:1.2rem 1.8rem;min-width:280px;max-width:380px;transform:translateY(120%);opacity:0;transition:transform .4s var(--ease),opacity .4s;border-left:3px solid var(--butter)}
+.toast.show{transform:translateY(0);opacity:1}
+.toast-title{font-family:var(--font-display);font-size:.9rem;color:var(--butter);margin-bottom:.2rem}
+.toast-msg{color:rgba(253,248,240,.7);font-size:.83rem;font-weight:300}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.8rem 5rem;display:flex;align-items:center;justify-content:space-between;transition:all .4s}
+nav.scrolled{background:rgba(253,248,240,.96);backdrop-filter:blur(16px);padding:1.1rem 5rem;border-bottom:1px solid var(--border);box-shadow:0 2px 20px var(--shadow)}
+.nav-logo{display:flex;align-items:center;gap:.7rem}
+.nav-logo-icon{font-size:1.6rem}
+.nav-logo-text{font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:var(--espresso);letter-spacing:.04em}
+.nav-logo-text span{color:var(--honey)}
+.nav-links{display:flex;gap:2.2rem;list-style:none}
+.nav-links a{font-size:.8rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--warm-mid);transition:color .3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:100%;height:1.5px;background:var(--honey);transition:right .3s var(--ease)}
+.nav-links a:hover{color:var(--espresso)}
+.nav-links a:hover::after{right:0}
+.nav-order{font-size:.75rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;background:var(--caramel);color:var(--flour);padding:.62rem 1.5rem;border-radius:var(--radius);transition:all .3s}
+.nav-order:hover{background:var(--espresso);box-shadow:0 6px 20px rgba(160,98,42,.3)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:transparent;padding:4px}
+.hamburger span{width:24px;height:1.5px;background:var(--espresso);transition:transform .3s,opacity .3s;display:block}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+.mob-menu{display:none;position:fixed;inset:0;background:var(--flour);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:2.2rem;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
+.mob-menu.open{opacity:1;visibility:visible}
+.mob-menu a{font-family:var(--font-display);font-size:2.2rem;font-weight:500;color:var(--espresso);transition:color .3s}
+.mob-menu a:hover{color:var(--caramel)}
+.mob-divider{width:50px;height:1px;background:var(--cream2)}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+#hero{min-height:100svh;position:relative;display:flex;align-items:center;overflow:hidden;background:var(--cream)}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1800&q=80');background-size:cover;background-position:center 30%;transform:scale(1.07);animation:heroZoom 14s ease forwards}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,rgba(253,248,240,.97) 0%,rgba(253,248,240,.88) 38%,rgba(253,248,240,.35) 70%,rgba(253,248,240,.1) 100%)}
+@keyframes heroZoom{from{transform:scale(1.07)}to{transform:scale(1)}}
+/* Grain texture overlay */
+.hero-grain{position:absolute;inset:0;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");z-index:1}
+.hero-content{position:relative;z-index:2;padding:0 5rem;max-width:720px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.8rem;background:rgba(232,200,122,.2);border:1px solid rgba(201,148,58,.25);padding:.45rem 1rem;margin-bottom:2rem;opacity:0;animation:fadeUp .8s var(--ease) 2s forwards}
+.hero-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--honey);animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+.hero-eyebrow-text{font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:var(--caramel);font-weight:600}
+h1.hero-title{font-family:var(--font-display);font-size:clamp(3.2rem,7.5vw,6.8rem);font-weight:400;line-height:.97;color:var(--espresso);margin-bottom:1.6rem;opacity:0;animation:fadeUp 1s var(--ease) 2.1s forwards}
+h1.hero-title em{font-style:italic;color:var(--caramel);display:block}
+.hero-sub{font-family:var(--font-serif);font-size:1.08rem;font-weight:400;color:var(--warm-mid);line-height:1.8;max-width:440px;margin-bottom:2.5rem;opacity:0;animation:fadeUp .8s var(--ease) 2.3s forwards}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeUp .8s var(--ease) 2.5s forwards}
+.hero-fresh-badge{position:absolute;right:5rem;bottom:4rem;z-index:2;width:110px;height:110px;opacity:0;animation:fadeUp .8s var(--ease) 2.8s forwards, badgeSpin 18s linear 3s infinite}
+@keyframes badgeSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.hero-fresh-badge svg text{font-family:var(--font-body);font-size:11.5px;fill:var(--caramel);letter-spacing:3.5px;text-transform:uppercase}
+.hero-scroll{position:absolute;left:50%;bottom:2.5rem;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;animation:fadeUp .8s var(--ease) 3.2s forwards}
+.scroll-arrow{width:1px;height:50px;background:linear-gradient(to bottom,var(--honey),transparent);animation:scrollPulse 2s ease infinite}
+@keyframes scrollPulse{0%,100%{opacity:.4;transform:scaleY(.7)}50%{opacity:1;transform:scaleY(1)}}
+.scroll-txt{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+/* Stats ribbon */
+.hero-ribbon{position:absolute;bottom:0;left:0;right:0;z-index:2;background:var(--espresso);display:grid;grid-template-columns:repeat(4,1fr);opacity:0;animation:fadeUp .8s var(--ease) 3s forwards}
+.ribbon-item{padding:1.3rem 1.5rem;border-right:1px solid rgba(255,255,255,.08);text-align:center}
+.ribbon-item:last-child{border-right:none}
+.ribbon-n{font-family:var(--font-display);font-size:2rem;font-style:italic;color:var(--butter);line-height:1;display:block}
+.ribbon-l{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(232,200,122,.45);margin-top:.2rem}
+
+/* ============================================================
+   MARQUEE STRIP
+   ============================================================ */
+.marquee-strip{background:var(--caramel);padding:.9rem 0;overflow:hidden;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1)}
+.marquee-track{display:flex;width:max-content;animation:marqueeScroll 22s linear infinite;gap:0}
+.marquee-item{display:flex;align-items:center;gap:1.2rem;padding:0 2.5rem;font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;color:var(--flour);font-weight:600;white-space:nowrap}
+.marquee-sep{opacity:.4;font-size:1rem}
+@keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+#about{background:var(--flour);padding:7rem 5rem}
+.about-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.about-img-wrap{position:relative;padding:2rem 0 2rem 2rem}
+.about-img-main{aspect-ratio:3/4;overflow:hidden;border-radius:var(--radius);box-shadow:0 20px 60px var(--shadow)}
+.about-img-main img{height:100%;transition:transform .8s var(--ease)}
+.about-img-main:hover img{transform:scale(1.04)}
+.about-img-float{position:absolute;bottom:-1rem;left:-1rem;width:55%;aspect-ratio:1;overflow:hidden;border:5px solid var(--flour);border-radius:var(--radius);box-shadow:0 12px 40px var(--shadow)}
+.about-img-float img{height:100%;transition:transform .8s var(--ease)}
+.about-img-float:hover img{transform:scale(1.06)}
+.about-corner{position:absolute;top:1rem;right:-1rem;width:70px;height:70px;border:1.5px solid var(--cream2);display:flex;align-items:center;justify-content:center;font-size:1.8rem;background:var(--flour)}
+.about-text p{font-family:var(--font-serif);font-size:1.02rem;color:var(--warm-mid);line-height:1.9;margin-bottom:1rem;font-weight:400}
+.about-text p strong{color:var(--espresso);font-weight:500}
+.about-values{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:2rem 0}
+.av-item{background:var(--cream);border:1px solid var(--border);padding:1.2rem;border-radius:var(--radius);transition:box-shadow .3s}
+.av-item:hover{box-shadow:0 6px 20px var(--shadow)}
+.av-icon{font-size:1.4rem;margin-bottom:.5rem}
+.av-title{font-family:var(--font-display);font-size:.92rem;color:var(--espresso);margin-bottom:.25rem}
+.av-desc{font-size:.8rem;color:var(--muted);font-weight:300;line-height:1.5}
+
+/* ============================================================
+   MENU / BAKED GOODS
+   ============================================================ */
+#menu{background:var(--cream);padding:7rem 5rem}
+.menu-hd{text-align:center;margin-bottom:3.5rem}
+.menu-hd .divider{max-width:360px;margin:1.2rem auto}
+.menu-cats{display:flex;justify-content:center;flex-wrap:wrap;gap:.6rem;margin-bottom:3.5rem}
+.cat-btn{padding:.6rem 1.5rem;font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--warm-mid);background:var(--flour);border:1.5px solid var(--border);border-radius:20px;transition:all .3s}
+.cat-btn.active,.cat-btn:hover{background:var(--caramel);color:var(--flour);border-color:var(--caramel)}
+.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;max-width:1200px;margin:0 auto}
+.menu-card{background:var(--flour);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s}
+.menu-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px var(--shadow)}
+.mc-img{aspect-ratio:4/3;overflow:hidden;position:relative;background:var(--cream2)}
+.mc-img img{height:100%;transition:transform .7s var(--ease);filter:brightness(.92)saturate(.95)}
+.menu-card:hover .mc-img img{transform:scale(1.07);filter:brightness(1)saturate(1.05)}
+.mc-badge{position:absolute;top:1rem;left:1rem}
+.mc-body{padding:1.4rem 1.5rem 1.6rem}
+.mc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.8rem;margin-bottom:.4rem}
+.mc-name{font-family:var(--font-display);font-size:1.05rem;font-weight:500;color:var(--espresso);line-height:1.25}
+.mc-price{font-family:var(--font-display);font-size:1.08rem;color:var(--caramel);font-weight:500;white-space:nowrap}
+.mc-desc{font-family:var(--font-serif);font-size:.85rem;color:var(--muted);line-height:1.6;margin-bottom:1rem}
+.mc-footer{display:flex;justify-content:space-between;align-items:center}
+.add-btn{background:rgba(160,98,42,.08);border:1.5px solid rgba(160,98,42,.25);color:var(--caramel);font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.5rem 1rem;border-radius:var(--radius);transition:all .3s}
+.add-btn:hover{background:var(--caramel);color:var(--flour)}
+
+/* ============================================================
+   CART
+   ============================================================ */
+#cart-btn{position:fixed;bottom:2rem;left:2rem;z-index:2000;background:var(--caramel);color:var(--flour);width:58px;height:58px;border-radius:50%;display:none;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 8px 30px rgba(160,98,42,.45);transition:transform .3s}
+#cart-btn:hover{transform:scale(1.1)}
+#cart-count{position:absolute;top:-3px;right:-3px;background:var(--espresso);color:var(--butter);width:20px;height:20px;border-radius:50%;font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+#cart-panel{position:fixed;right:0;top:0;bottom:0;width:420px;background:var(--flour);border-left:1px solid var(--border);z-index:3000;transform:translateX(100%);transition:transform .4s var(--ease);display:flex;flex-direction:column;overflow:hidden;box-shadow:-12px 0 40px var(--shadow)}
+#cart-panel.open{transform:translateX(0)}
+.cart-hd{padding:1.5rem 2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--cream)}
+.cart-title{font-family:var(--font-display);font-size:1.1rem;color:var(--espresso)}
+.cart-close{background:transparent;color:var(--muted);font-size:1.2rem;transition:color .3s}
+.cart-close:hover{color:var(--caramel)}
+.cart-items{flex:1;overflow-y:auto;padding:1.5rem 2rem}
+.cart-item{display:flex;justify-content:space-between;align-items:center;padding:.9rem 0;border-bottom:1px solid var(--border)}
+.ci-name{font-size:.9rem;font-weight:500;color:var(--espresso)}
+.ci-qty{display:flex;align-items:center;gap:.6rem;font-size:.82rem;color:var(--muted)}
+.qty-btn{background:rgba(160,98,42,.1);border:1px solid var(--border);color:var(--caramel);width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:all .2s;border-radius:var(--radius)}
+.qty-btn:hover{background:var(--caramel);color:var(--flour)}
+.ci-price{font-family:var(--font-display);font-size:.95rem;color:var(--caramel)}
+.cart-empty{text-align:center;padding:3rem 1rem;color:var(--muted);font-family:var(--font-serif);font-style:italic;font-size:1rem}
+.cart-empty-icon{font-size:2.5rem;margin-bottom:1rem}
+.cart-ft{padding:1.5rem 2rem;border-top:1px solid var(--border);background:var(--cream)}
+.cart-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem}
+.ct-label{font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.ct-val{font-family:var(--font-display);font-size:1.3rem;color:var(--caramel)}
+.cart-form{display:flex;flex-direction:column;gap:.7rem;margin-bottom:1rem}
+.cart-form input{background:var(--flour);border:1.5px solid var(--border);color:var(--espresso);padding:.75rem 1rem;font-size:.88rem;border-radius:var(--radius);outline:none;transition:border .3s}
+.cart-form input:focus{border-color:var(--honey)}
+.cart-form input::placeholder{color:var(--muted)}
+.cart-submit{width:100%;background:var(--caramel);color:var(--flour);padding:1rem;font-size:.78rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;border-radius:var(--radius);transition:background .3s,box-shadow .3s}
+.cart-submit:hover{background:var(--espresso);box-shadow:0 8px 25px rgba(160,98,42,.35)}
+.overlay{position:fixed;inset:0;background:rgba(61,32,16,.4);z-index:2500;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;backdrop-filter:blur(2px)}
+.overlay.on{opacity:1;visibility:visible}
+
+/* ============================================================
+   SPECIALS / FEATURED
+   ============================================================ */
+#specials{background:var(--espresso);padding:7rem 5rem;position:relative;overflow:hidden}
+#specials::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(232,200,122,.04) 0,rgba(232,200,122,.04) 1px,transparent 0,transparent 50%);background-size:35px 35px}
+.specials-inner{max-width:1200px;margin:0 auto;position:relative;z-index:1}
+.specials-hd{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:end;margin-bottom:4rem}
+.specials-hd .sec-title{color:var(--cream)}
+.specials-hd .sec-title em{color:var(--butter)}
+.specials-hd .eyebrow{color:var(--butter)}
+.specials-desc{font-family:var(--font-serif);font-size:1rem;color:rgba(245,234,214,.6);line-height:1.8;align-self:end}
+.specials-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:1.5px;background:rgba(232,200,122,.08)}
+.special-card{background:var(--espresso);padding:2.5rem;position:relative;overflow:hidden;transition:background .3s}
+.special-card:hover{background:rgba(45,21,8,.8)}
+.special-card::before{content:'';position:absolute;bottom:0;left:0;right:100%;height:2px;background:var(--butter);transition:right .5s var(--ease)}
+.special-card:hover::before{right:0}
+.sc-num{font-family:var(--font-display);font-size:3.5rem;font-style:italic;color:rgba(232,200,122,.1);line-height:1;margin-bottom:1rem;transition:color .4s}
+.special-card:hover .sc-num{color:rgba(232,200,122,.2)}
+.sc-icon{font-size:2rem;margin-bottom:1rem}
+.sc-name{font-family:var(--font-display);font-size:1.3rem;color:var(--cream);margin-bottom:.6rem}
+.sc-desc{font-family:var(--font-serif);font-size:.88rem;color:rgba(245,234,214,.55);line-height:1.7;margin-bottom:1.2rem;font-weight:300}
+.sc-price{font-family:var(--font-display);font-size:1.1rem;color:var(--butter);font-style:italic}
+
+/* ============================================================
+   GALLERY
+   ============================================================ */
+#gallery{background:var(--cream);padding:7rem 5rem}
+.gallery-hd{text-align:center;margin-bottom:4rem}
+.gal-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:10px;max-width:1300px;margin:0 auto}
+.gi{overflow:hidden;border-radius:var(--radius);position:relative;background:var(--cream2)}
+.gi:nth-child(1){grid-column:span 5;grid-row:span 2}
+.gi:nth-child(2){grid-column:span 7}
+.gi:nth-child(3){grid-column:span 7}
+.gi:nth-child(4){grid-column:span 4}
+.gi:nth-child(5){grid-column:span 4}
+.gi:nth-child(6){grid-column:span 4}
+.gi img{width:100%;height:100%;min-height:180px;object-fit:cover;transition:transform .8s var(--ease),filter .5s;filter:brightness(.88)saturate(.95)}
+.gi:hover img{transform:scale(1.07);filter:brightness(1)saturate(1.1)}
+.gi-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(61,32,16,.65)0%,transparent 55%);opacity:0;transition:opacity .4s;display:flex;align-items:flex-end;padding:1.2rem}
+.gi:hover .gi-ov{opacity:1}
+.gi-label{font-family:var(--font-serif);font-size:.95rem;font-style:italic;color:var(--flour)}
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+#testimonials{background:var(--flour);padding:7rem 5rem;overflow:hidden}
+.test-hd{text-align:center;margin-bottom:4rem}
+.test-track{display:flex;gap:1.5rem;width:max-content;animation:marquee2 32s linear infinite}
+.test-track:hover{animation-play-state:paused}
+@keyframes marquee2{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.test-card{width:380px;flex-shrink:0;background:var(--cream);border:1px solid var(--border);padding:2.2rem;border-radius:var(--radius);transition:box-shadow .3s}
+.test-card:hover{box-shadow:0 12px 40px var(--shadow)}
+.tc-stars{color:var(--honey);font-size:.82rem;letter-spacing:.12em;margin-bottom:.7rem}
+.tc-qmark{font-family:var(--font-display);font-size:4.5rem;color:rgba(201,148,58,.2);line-height:1;margin-bottom:.3rem}
+.tc-text{font-family:var(--font-serif);font-size:.95rem;font-style:italic;color:var(--warm-mid);line-height:1.75;margin-bottom:1.5rem}
+.tc-author{display:flex;align-items:center;gap:.9rem}
+.tc-av{width:42px;height:42px;border-radius:50%;overflow:hidden;border:2px solid var(--butter);flex-shrink:0}
+.tc-av img{width:100%;height:100%;object-fit:cover}
+.tc-name{font-size:.85rem;font-weight:600;color:var(--espresso)}
+.tc-role{font-size:.73rem;color:var(--muted)}
+
+/* ============================================================
+   ORDER / CONTACT
+   ============================================================ */
+#order{background:var(--cream);padding:7rem 5rem}
+.order-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:6rem;align-items:start}
+.order-info p{font-family:var(--font-serif);font-size:1.02rem;color:var(--warm-mid);line-height:1.9;margin-bottom:1.5rem}
+.hours-block{margin-top:2rem}
+.hours-title{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--honey);font-weight:600;margin-bottom:.8rem}
+.hours-row{display:flex;justify-content:space-between;padding:.65rem 0;border-bottom:1px solid var(--border);font-size:.88rem}
+.hours-day{color:var(--warm-mid);font-weight:300;font-family:var(--font-serif)}
+.hours-time{color:var(--espresso);font-weight:500}
+.contact-list{list-style:none;margin-top:2rem}
+.contact-list li{display:flex;gap:1rem;padding:.8rem 0;border-bottom:1px solid var(--border);font-size:.88rem;align-items:flex-start}
+.contact-list li:first-child{border-top:1px solid var(--border)}
+.cl-label{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--honey);min-width:70px;font-weight:600;padding-top:.1rem}
+.cl-val{color:var(--warm-mid);font-weight:300;font-family:var(--font-serif);font-size:.95rem}
+.order-form-wrap{background:var(--flour);border:1px solid var(--border);padding:2.5rem;border-radius:var(--radius);box-shadow:0 8px 30px var(--shadow)}
+.order-form{display:flex;flex-direction:column;gap:1.1rem}
+.fg{display:flex;flex-direction:column;gap:.38rem}
+.fg label{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.fg input,.fg select,.fg textarea{background:var(--cream);border:1.5px solid var(--border);color:var(--espresso);padding:.85rem 1rem;border-radius:var(--radius);outline:none;transition:border .3s;-webkit-appearance:none}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--honey)}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(160,128,96,.5)}
+.fg select option{background:var(--flour)}
+.fg textarea{resize:none}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+.form-submit{background:var(--caramel);color:var(--flour);padding:1.1rem;font-size:.78rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;border-radius:var(--radius);transition:background .3s,box-shadow .3s,transform .2s;width:100%;margin-top:.3rem}
+.form-submit:hover{background:var(--espresso);box-shadow:0 10px 30px rgba(160,98,42,.35);transform:translateY(-1px)}
+.form-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{background:var(--bark);padding:5rem 5rem 3rem;border-top:1px solid rgba(255,255,255,.06)}
+.footer-top{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:4rem;margin-bottom:4rem}
+.footer-brand-logo{display:flex;align-items:center;gap:.7rem;margin-bottom:1rem}
+.footer-brand-logo-icon{font-size:1.8rem}
+.footer-brand-name{font-family:var(--font-display);font-size:1.6rem;color:var(--cream);letter-spacing:.04em}
+.footer-brand-name span{color:var(--butter)}
+.footer-tagline{font-family:var(--font-serif);font-size:.9rem;font-style:italic;color:rgba(245,234,214,.45);line-height:1.7;max-width:220px;margin-bottom:1.5rem}
+.footer-socials{display:flex;gap:.7rem}
+.fsoc{width:38px;height:38px;border:1px solid rgba(232,200,122,.15);display:flex;align-items:center;justify-content:center;font-size:.78rem;color:rgba(245,234,214,.4);transition:all .3s;border-radius:var(--radius)}
+.fsoc:hover{border-color:var(--butter);color:var(--butter)}
+.footer-col-title{font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--butter);margin-bottom:1.2rem;font-weight:600}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:.65rem}
+.footer-links a{font-size:.85rem;color:rgba(245,234,214,.4);font-weight:300;transition:color .3s}
+.footer-links a:hover{color:var(--cream)}
+.footer-bottom{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(255,255,255,.06);font-size:.78rem;color:rgba(245,234,214,.25)}
+
+/* ============================================================
+   RESPONSIVE — TABLET (max 1100px)
+   ============================================================ */
+@media(max-width:1100px){
+  nav{padding:1.4rem 2.5rem}
+  nav.scrolled{padding:1rem 2.5rem}
+  .nav-links,.nav-order{display:none}
+  .hamburger{display:flex}
+  .mob-menu{display:flex}
+  .section,#about,#menu,#specials,#gallery,#testimonials,#order,footer{padding-left:2.5rem;padding-right:2.5rem}
+  #hero{padding:0}
+  .hero-content{padding:0 2.5rem 8rem}
+  .hero-fresh-badge{right:2.5rem;bottom:5rem}
+  .hero-ribbon{display:grid;grid-template-columns:repeat(4,1fr)}
+  .about-grid{grid-template-columns:1fr;gap:3rem}
+  .about-img-float{bottom:-1rem;left:0}
+  .menu-grid{grid-template-columns:repeat(2,1fr)}
+  .specials-hd{grid-template-columns:1fr}
+  .specials-grid{grid-template-columns:1fr 1fr}
+  .gi:nth-child(1){grid-column:span 12}
+  .gi:nth-child(2){grid-column:span 6}
+  .gi:nth-child(3){grid-column:span 6}
+  .gi:nth-child(n+4){grid-column:span 4}
+  .order-inner{grid-template-columns:1fr;gap:3rem}
+  .footer-top{grid-template-columns:1fr 1fr;gap:2.5rem}
+}
+
+/* ============================================================
+   RESPONSIVE — MOBILE (max 680px)
+   ============================================================ */
+@media(max-width:680px){
+  nav{padding:1rem 1.3rem}
+  nav.scrolled{padding:.8rem 1.3rem}
+  .hero-content{padding:0 1.3rem 9rem}
+  h1.hero-title{font-size:clamp(2.6rem,10vw,3.5rem)}
+  .hero-sub{font-size:.98rem}
+  .hero-btns{flex-direction:column}
+  .btn-warm,.btn-outline-warm{width:100%;text-align:center;padding:.9rem 1.5rem}
+  .hero-fresh-badge{width:80px;height:80px;bottom:5.5rem;right:1.3rem}
+  .hero-ribbon{grid-template-columns:repeat(2,1fr)}
+  .hero-ribbon .ribbon-item:nth-child(3){border-top:1px solid rgba(255,255,255,.08)}
+  .hero-ribbon .ribbon-item:nth-child(4){border-top:1px solid rgba(255,255,255,.08)}
+  .hero-scroll{display:none}
+  #about,#menu,#specials,#gallery,#testimonials,#order{padding:4.5rem 1.3rem}
+  footer{padding:4rem 1.3rem 2.5rem}
+  .about-grid{gap:2rem}
+  .about-img-float{position:relative;bottom:auto;left:auto;width:100%;border:none;margin-top:1rem}
+  .about-corner{display:none}
+  .about-values{grid-template-columns:1fr}
+  .menu-cats{gap:.4rem}
+  .cat-btn{padding:.5rem 1rem;font-size:.7rem}
+  .menu-grid{grid-template-columns:1fr}
+  .specials-hd{gap:1.5rem}
+  .specials-grid{grid-template-columns:1fr}
+  .gal-grid{grid-template-columns:1fr 1fr;gap:8px}
+  .gi,.gi:nth-child(n){grid-column:span 1;aspect-ratio:1}
+  .gi:nth-child(1){grid-column:span 2;aspect-ratio:16/9;grid-row:span 1}
+  .test-card{width:300px}
+  .order-form-wrap{padding:1.5rem}
+  .form-row{grid-template-columns:1fr}
+  #cart-panel{width:100%}
+  .footer-top{grid-template-columns:1fr;gap:2rem}
+  .footer-bottom{flex-direction:column;gap:.4rem;text-align:center}
+  .sec-title{font-size:clamp(1.8rem,8vw,2.6rem)}
+}
+@media(max-width:380px){
+  h1.hero-title{font-size:2.3rem}
+  .cat-btn{font-size:.65rem;padding:.45rem .8rem}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-icon">🥐</div>
+  <div class="loader-name">Crumble & Co.</div>
+  <div class="loader-sub">Artisan Bakery</div>
+  <div class="loader-dots"><span></span><span></span><span></span></div>
+</div>
+
+<!-- CURSOR -->
+<div id="cursor"><div id="cdot"></div><div id="cring"></div></div>
+
+<!-- OVERLAY & CART -->
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<div id="cart-panel">
+  <div class="cart-hd">
+    <span class="cart-title">Your Basket 🧺</span>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cart-list">
+    <div class="cart-empty"><div class="cart-empty-icon">🧁</div>Your basket is empty.<br>Add something delicious!</div>
+  </div>
+  <div class="cart-ft">
+    <div class="cart-total">
+      <span class="ct-label">Total</span>
+      <span class="ct-val" id="cart-total">$0.00</span>
+    </div>
+    <div class="cart-form">
+      <input type="text" id="c-name" placeholder="Your name" />
+      <input type="text" id="c-phone" placeholder="Phone / pickup note" />
+    </div>
+    <button class="cart-submit" onclick="placeOrder()">Place Order 🎉</button>
+  </div>
+</div>
+<button id="cart-btn" onclick="openCart()">🧺<span id="cart-count">0</span></button>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="toast-title" id="toast-title"></div>
+  <div class="toast-msg" id="toast-msg"></div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">
+    <span class="nav-logo-icon">🥖</span>
+    <span class="nav-logo-text">Crumble <span>&</span> Co.</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#specials">Specials</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#order">Order</a></li>
+  </ul>
+  <button class="nav-order" onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})">Order Now</button>
+  <button class="hamburger" id="hb"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mobMenu">
+  <a href="#about" class="ml">About</a>
+  <div class="mob-divider"></div>
+  <a href="#menu" class="ml">Menu</a>
+  <div class="mob-divider"></div>
+  <a href="#specials" class="ml">Specials</a>
+  <div class="mob-divider"></div>
+  <a href="#gallery" class="ml">Gallery</a>
+  <div class="mob-divider"></div>
+  <a href="#order" class="ml">Order</a>
+</div>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-dot"></div>
+      <span class="hero-eyebrow-text">Baked Fresh Every Morning · Est. 2011</span>
+    </div>
+    <h1 class="hero-title">Baked with<br><em>Love & Butter</em></h1>
+    <p class="hero-sub">Handcrafted artisan breads, flaky pastries, and celebration cakes made from scratch each morning using heritage recipes and locally sourced ingredients.</p>
+    <div class="hero-btns">
+      <a href="#menu" class="btn-warm">Browse the Menu</a>
+      <a href="#order" class="btn-outline-warm">Order for Pickup</a>
+    </div>
+  </div>
+
+  <!-- Spinning badge -->
+  <div class="hero-fresh-badge">
+    <svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <path id="circle" d="M 55,55 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/>
+      </defs>
+      <text><textPath href="#circle">FRESH DAILY · BAKED WITH LOVE · </textPath></text>
+    </svg>
+  </div>
+
+  <div class="hero-ribbon">
+    <div class="ribbon-item"><span class="ribbon-n" data-target="13">0</span><div class="ribbon-l">Years Baking</div></div>
+    <div class="ribbon-item"><span class="ribbon-n" data-target="40">0</span><div class="ribbon-l">Daily Recipes</div></div>
+    <div class="ribbon-item"><span class="ribbon-n" data-target="6">0</span><div class="ribbon-l">Days a Week</div></div>
+    <div class="ribbon-item"><span class="ribbon-n" data-target="5000">0</span><div class="ribbon-l">Happy Customers</div></div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-arrow"></div><div class="scroll-txt">Scroll</div></div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track" id="marqueeTrack"></div>
+</div>
+
+<!-- ============================================================
+     ABOUT
+     ============================================================ -->
+<section id="about">
+  <div class="about-grid inner">
+    <div class="about-img-wrap reveal-l">
+      <div class="about-corner">🌾</div>
+      <div class="about-img-main">
+        <img src="https://images.unsplash.com/photo-1556217477-d325251ece38?w=800&q=80" alt="Baker at work" loading="lazy"/>
+      </div>
+      <div class="about-img-float">
+        <img src="https://images.unsplash.com/photo-1586444248879-bc604cbd555a?w=400&q=80" alt="Fresh bread" loading="lazy"/>
+      </div>
+    </div>
+    <div class="reveal-r">
+      <p class="eyebrow">Our Story</p>
+      <h2 class="sec-title">A Kitchen Full of<br><em>Good Things</em></h2>
+      <div class="divider"><span class="divider-icon">🌸</span></div>
+      <div class="about-text">
+        <p>Crumble & Co. was born in <strong>2011</strong> from a farmhouse kitchen and a stubborn belief that bread should taste like bread — made slowly, with real ingredients, and baked until it smells like Sunday morning.</p>
+        <p>Our founder, <strong>Mae Holloway</strong>, learned to bake from her grandmother and spent years perfecting sourdough starters, laminated doughs, and the perfectly sticky cinnamon roll before opening our first little shop.</p>
+        <p>Today we bake <strong>over 40 varieties</strong> of bread, pastry, and cake every single morning — all from scratch, all with love, and all available for pickup or local delivery.</p>
+      </div>
+      <div class="about-values stag">
+        <div class="av-item">
+          <div class="av-icon">🌾</div>
+          <div class="av-title">Local Grains</div>
+          <div class="av-desc">Stone-milled flour from family farms within 60 miles</div>
+        </div>
+        <div class="av-item">
+          <div class="av-icon">🧈</div>
+          <div class="av-title">Real Butter</div>
+          <div class="av-desc">Grass-fed, cultured European-style butter. Always.</div>
+        </div>
+        <div class="av-item">
+          <div class="av-icon">🕔</div>
+          <div class="av-title">Long Ferments</div>
+          <div class="av-desc">Cold-proofed overnight for depth of flavour and better digestion</div>
+        </div>
+        <div class="av-item">
+          <div class="av-icon">❌</div>
+          <div class="av-title">No Shortcuts</div>
+          <div class="av-desc">No preservatives, no additives, no compromises. Ever.</div>
+        </div>
+      </div>
+      <div style="height:2rem"></div>
+      <a href="#order" class="btn-warm">Order Fresh Today</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     MENU
+     ============================================================ -->
+<section id="menu">
+  <div class="menu-hd reveal">
+    <p class="eyebrow">Fresh From the Oven</p>
+    <h2 class="sec-title">Our <em>Menu</em></h2>
+    <div class="divider"><span class="divider-icon">🥐</span></div>
+  </div>
+  <div class="menu-cats" id="menuCats"></div>
+  <div class="menu-grid stag" id="menuGrid"></div>
+</section>
+
+<!-- ============================================================
+     SPECIALS
+     ============================================================ -->
+<section id="specials">
+  <div class="specials-inner">
+    <div class="specials-hd">
+      <div class="reveal-l">
+        <p class="eyebrow">Why We're Different</p>
+        <h2 class="sec-title">Our Craft<br><em>Signatures</em></h2>
+      </div>
+      <p class="specials-desc reveal-r">Every item we make has a story. These are the pillars of our craft — the things we believe truly set a great bakery apart from the rest.</p>
+    </div>
+    <div class="specials-grid stag">
+      <div class="special-card">
+        <div class="sc-num">01</div>
+        <div class="sc-icon">🍞</div>
+        <div class="sc-name">Heritage Sourdough</div>
+        <p class="sc-desc">Our sourdough starter, "Rosie," has been fed and tended since 2011. Every loaf carries that 13-year history in its crust and crumb.</p>
+        <div class="sc-price">From $8.50</div>
+      </div>
+      <div class="special-card">
+        <div class="sc-num">02</div>
+        <div class="sc-icon">🥐</div>
+        <div class="sc-name">Laminated Pastries</div>
+        <p class="sc-desc">Our croissants go through 72 layers of hand-folded dough and butter, proofed overnight, baked every morning at 5am sharp.</p>
+        <div class="sc-price">From $4.00</div>
+      </div>
+      <div class="special-card">
+        <div class="sc-num">03</div>
+        <div class="sc-icon">🎂</div>
+        <div class="sc-name">Celebration Cakes</div>
+        <p class="sc-desc">Custom layer cakes for every occasion — designed, baked, and decorated by hand. No templates, no stock decorations.</p>
+        <div class="sc-price">From $65.00</div>
+      </div>
+      <div class="special-card">
+        <div class="sc-num">04</div>
+        <div class="sc-icon">🌿</div>
+        <div class="sc-name">Seasonal Specials</div>
+        <p class="sc-desc">Our menu changes with what's growing. Rhubarb in spring, stone fruit in summer, spiced apple in autumn — we follow nature's lead.</p>
+        <div class="sc-price">Weekly</div>
+      </div>
+      <div class="special-card">
+        <div class="sc-num">05</div>
+        <div class="sc-icon">☕</div>
+        <div class="sc-name">Bakery Coffee Bar</div>
+        <p class="sc-desc">Specialty single-origin espresso and filter coffee, paired perfectly with anything warm from our ovens. Dine in or takeaway.</p>
+        <div class="sc-price">From $3.50</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     GALLERY
+     ============================================================ -->
+<section id="gallery">
+  <div class="gallery-hd reveal">
+    <p class="eyebrow">From Our Kitchen</p>
+    <h2 class="sec-title">A Feast for <em>the Eyes</em></h2>
+    <div class="divider"><span class="divider-icon">📸</span></div>
+  </div>
+  <div class="gal-grid">
+    <div class="gi"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&q=80" alt="Artisan bread" loading="lazy"/><div class="gi-ov"><span class="gi-label">Morning Loaves</span></div></div>
+    <div class="gi"><img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=700&q=80" alt="Croissants" loading="lazy"/><div class="gi-ov"><span class="gi-label">Butter Croissants</span></div></div>
+    <div class="gi"><img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=700&q=80" alt="Cakes" loading="lazy"/><div class="gi-ov"><span class="gi-label">Celebration Cakes</span></div></div>
+    <div class="gi"><img src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=600&q=80" alt="Pastries" loading="lazy"/><div class="gi-ov"><span class="gi-label">Pastry Selection</span></div></div>
+    <div class="gi"><img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600&q=80" alt="Cookies" loading="lazy"/><div class="gi-ov"><span class="gi-label">Cookies & Biscuits</span></div></div>
+    <div class="gi"><img src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=600&q=80" alt="Bakery interior" loading="lazy"/><div class="gi-ov"><span class="gi-label">The Bakery</span></div></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONIALS
+     ============================================================ -->
+<section id="testimonials">
+  <div class="test-hd reveal">
+    <p class="eyebrow">What People Say</p>
+    <h2 class="sec-title">Made with Love,<br><em>Tasted with Joy</em></h2>
+    <div class="divider"><span class="divider-icon">💛</span></div>
+  </div>
+  <div style="overflow:hidden"><div class="test-track" id="testTrack"></div></div>
+</section>
+
+<!-- ============================================================
+     ORDER / CONTACT
+     ============================================================ -->
+<section id="order">
+  <div class="order-inner inner">
+    <div class="reveal-l">
+      <p class="eyebrow">Visit or Order Online</p>
+      <h2 class="sec-title">Come Say <em>Hello</em></h2>
+      <div class="divider"><span class="divider-icon">🥐</span></div>
+      <p>We bake everything fresh each morning, so orders placed before <strong>8pm</strong> the night before are ready for pickup from <strong>7am</strong> the next day. Walk-ins always welcome until we sell out!</p>
+      <div class="hours-block">
+        <div class="hours-title">Opening Hours</div>
+        <div class="hours-row"><span class="hours-day">Monday – Friday</span><span class="hours-time">7:00am – 5:00pm</span></div>
+        <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-time">7:00am – 4:00pm</span></div>
+        <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-time">8:00am – 2:00pm</span></div>
+      </div>
+      <ul class="contact-list">
+        <li><span class="cl-label">Address</span><span class="cl-val">14 Millstone Lane<br>Thornbury, SA 5012</span></li>
+        <li><span class="cl-label">Phone</span><span class="cl-val">+1 (555) 234 5678</span></li>
+        <li><span class="cl-label">Email</span><span class="cl-val">hello@crumbleandco.com</span></li>
+      </ul>
+    </div>
+    <div class="order-form-wrap reveal-r">
+      <form class="order-form" id="orderForm" onsubmit="submitOrder(event)">
+        <div class="form-row">
+          <div class="fg"><label>Full Name *</label><input type="text" name="name" placeholder="Mae Holloway" required/></div>
+          <div class="fg"><label>Phone *</label><input type="tel" name="phone" placeholder="+1 555 000 0000" required/></div>
+        </div>
+        <div class="fg"><label>Email Address *</label><input type="email" name="email" placeholder="you@email.com" required/></div>
+        <div class="form-row">
+          <div class="fg"><label>Pickup Date *</label><input type="date" name="date" required/></div>
+          <div class="fg"><label>Pickup Time *</label>
+            <select name="time" required>
+              <option value="" disabled selected>Select</option>
+              <option>7:00 AM</option><option>7:30 AM</option><option>8:00 AM</option>
+              <option>8:30 AM</option><option>9:00 AM</option><option>10:00 AM</option>
+              <option>11:00 AM</option><option>12:00 PM</option><option>1:00 PM</option>
+              <option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option>
+            </select>
+          </div>
+        </div>
+        <div class="fg"><label>Order Type</label>
+          <select name="type">
+            <option>Pickup</option><option>Local Delivery</option><option>Custom Cake Enquiry</option>
+          </select>
+        </div>
+        <div class="fg"><label>What Would You Like? *</label>
+          <textarea name="items" rows="4" placeholder="e.g. 1x sourdough loaf, 4x croissants, 1x cinnamon roll..." required></textarea>
+        </div>
+        <div class="fg"><label>Special Requests / Allergies</label>
+          <textarea name="notes" rows="2" placeholder="Nut-free, gluten-free options, special message on cake..."></textarea>
+        </div>
+        <button type="submit" class="form-submit" id="orderSubmit">Place My Order 🥐</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-logo">
+        <span class="footer-brand-logo-icon">🥖</span>
+        <span class="footer-brand-name">Crumble <span>&</span> Co.</span>
+      </div>
+      <p class="footer-tagline">Handcrafted with heritage recipes and honest ingredients since 2011.</p>
+      <div class="footer-socials">
+        <a href="#" class="fsoc" aria-label="Instagram">IG</a>
+        <a href="#" class="fsoc" aria-label="Facebook">FB</a>
+        <a href="#" class="fsoc" aria-label="Pinterest">PT</a>
+        <a href="#" class="fsoc" aria-label="TikTok">TK</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Visit</div>
+      <ul class="footer-links">
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#menu">Our Menu</a></li>
+        <li><a href="#specials">Specials</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#order">Order Now</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Baked Goods</div>
+      <ul class="footer-links">
+        <li><a href="#">Sourdough Breads</a></li>
+        <li><a href="#">Croissants & Pastry</a></li>
+        <li><a href="#">Cakes & Tarts</a></li>
+        <li><a href="#">Cookies & Biscuits</a></li>
+        <li><a href="#">Custom Cakes</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="#">14 Millstone Lane</a></li>
+        <li><a href="#">Thornbury, SA 5012</a></li>
+        <li><a href="#">+1 (555) 234 5678</a></li>
+        <li><a href="#">hello@crumbleandco.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Crumble & Co. Artisan Bakery. All rights reserved.</span>
+    <span>Baked with 🧈 & lots of love</span>
+  </div>
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+// ── LOADER ────────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('loader').classList.add('done'), 2500);
+});
+
+// ── CURSOR ────────────────────────────────────────────────────
+const cdot = document.getElementById('cdot');
+const cring = document.getElementById('cring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {
+  mx=e.clientX; my=e.clientY;
+  cdot.style.left=mx+'px'; cdot.style.top=my+'px';
+});
+(function animRing(){
+  rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
+  cring.style.left=rx+'px'; cring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a,button,.menu-card,.gi,.test-card,input,select,textarea').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
+});
+
+// ── NAVBAR ────────────────────────────────────────────────────
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>60);
+});
+
+// ── HAMBURGER ─────────────────────────────────────────────────
+const hb=document.getElementById('hb');
+const mm=document.getElementById('mobMenu');
+hb.addEventListener('click',()=>{
+  hb.classList.toggle('open'); mm.classList.toggle('open');
+  document.body.style.overflow=mm.classList.contains('open')?'hidden':'';
+});
+document.querySelectorAll('.ml').forEach(l=>{
+  l.addEventListener('click',()=>{ hb.classList.remove('open'); mm.classList.remove('open'); document.body.style.overflow=''; });
+});
+
+// ── SCROLL REVEAL ─────────────────────────────────────────────
+new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('on'); });
+},{threshold:.1,rootMargin:'0px 0px -50px 0px'})
+.observe.call(
+  new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('on'); }); },{threshold:.1,rootMargin:'0px 0px -50px 0px'}),
+  ...document.querySelectorAll('.reveal,.reveal-l,.reveal-r,.stag')
+);
+// Simpler version:
+const ro = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('on'); });
+},{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r,.stag').forEach(el=>ro.observe(el));
+
+// ── COUNTER ANIMATION ──────────────────────────────────────────
+function animCount(el,target,dur=1500){
+  let s=0; const step=target/(dur/16);
+  const t=setInterval(()=>{
+    s+=step;
+    if(s>=target){ el.textContent=target.toLocaleString(); clearInterval(t); return; }
+    el.textContent=Math.floor(s).toLocaleString();
+  },16);
+}
+const cObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      document.querySelectorAll('[data-target]').forEach(el=>animCount(el,parseInt(el.dataset.target)));
+      cObs.disconnect();
+    }
+  });
+},{threshold:.5});
+const ribbon=document.querySelector('.hero-ribbon');
+if(ribbon) cObs.observe(ribbon);
+
+// ── MARQUEE BUILD ──────────────────────────────────────────────
+const marqueeItems=['Sourdough Bread','Butter Croissants','Custom Cakes','Cinnamon Rolls','Focaccia','Banana Bread','Lemon Tarts','Scones','Pain au Chocolat','Brioche','Baked Fresh Daily','Local Ingredients'];
+const mt=document.getElementById('marqueeTrack');
+const allItems=[...marqueeItems,...marqueeItems];
+allItems.forEach(item=>{
+  mt.innerHTML+=`<div class="marquee-item">${item}<span class="marquee-sep">✦</span></div>`;
+});
+
+// ── MENU DATA ──────────────────────────────────────────────────
+const menuImgs = {
+  s1:'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&q=75',
+  s2:'https://images.unsplash.com/photo-1586444248879-bc604cbd555a?w=500&q=75',
+  s3:'https://images.unsplash.com/photo-1574085733277-851d9d856a3a?w=500&q=75',
+  p1:'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=500&q=75',
+  p2:'https://images.unsplash.com/photo-1530610476181-d83430b64dcd?w=500&q=75',
+  p3:'https://images.unsplash.com/photo-1620921592619-652411a4f57f?w=500&q=75',
+  c1:'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=500&q=75',
+  c2:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&q=75',
+  c3:'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=500&q=75',
+  k1:'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500&q=75',
+  k2:'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=500&q=75',
+  k3:'https://images.unsplash.com/photo-1590080876351-41ade3b2e21d?w=500&q=75',
+  d1:'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=500&q=75',
+  d2:'https://images.unsplash.com/photo-1460306855393-0faed7be1dc9?w=500&q=75',
+  d3:'https://images.unsplash.com/photo-1547592180-85f173990554?w=500&q=75',
+};
+const menuData = {
+  categories:[
+    {id:'breads', label:'🍞 Breads', items:[
+      {id:1,name:'Heritage Sourdough',desc:'72-hour cold-proofed with Rosie our 13-year-old starter. Crackling crust, open crumb.',price:8.50,tag:'Signature',img:'s1'},
+      {id:2,name:'Seeded Rye Loaf',desc:'Dark rye with sunflower, pumpkin & caraway seeds. Dense, nutty and deeply satisfying.',price:9.00,tag:'',img:'s2'},
+      {id:3,name:'Honey Oat Tin',desc:'Soft sandwich loaf with rolled oats, local honey and a gentle sweetness perfect for toast.',price:7.50,tag:'Fan Fave',img:'s3'},
+    ]},
+    {id:'pastries', label:'🥐 Pastries', items:[
+      {id:4,name:'Butter Croissant',desc:'72 hand-folded layers of French butter dough, proofed overnight, baked at 5am.',price:4.00,tag:'Best Seller',img:'p1'},
+      {id:5,name:'Pain au Chocolat',desc:'Our croissant dough wrapped around two fingers of 70% dark chocolate. Dangerously good.',price:4.50,tag:'',img:'p2'},
+      {id:6,name:'Cinnamon Roll',desc:'Enriched dough, brown sugar & cinnamon filling, cream cheese icing. Warm from the oven.',price:5.50,tag:'New',img:'p3'},
+    ]},
+    {id:'cakes', label:'🎂 Cakes', items:[
+      {id:7,name:'Lemon Drizzle',desc:'Zesty lemon sponge soaked with syrup and finished with a sharp lemon glaze. Classic.',price:4.20,tag:'',img:'c1'},
+      {id:8,name:'Chocolate Fudge Slice',desc:'Three layers of rich chocolate cake, dark fudge buttercream, chocolate bark topping.',price:5.50,tag:'Popular',img:'c2'},
+      {id:9,name:'Seasonal Tart',desc:'This week: rhubarb & custard in a buttery shortcrust shell. Changes with the season.',price:5.00,tag:'Weekly',img:'c3'},
+    ]},
+    {id:'cookies', label:'🍪 Cookies', items:[
+      {id:10,name:'Brown Butter Chocolate Chip',desc:'Extra-thick, deeply golden, still gooey in the centre. The only cookie you need.',price:3.50,tag:'',img:'k1'},
+      {id:11,name:'Salted Caramel Shortbread',desc:'Buttery shortbread topped with soft caramel and a pinch of flaked sea salt.',price:3.20,tag:'',img:'k2'},
+      {id:12,name:'Almond Biscotti',desc:'Twice-baked with whole almonds and a hint of orange zest. Perfect with coffee.',price:2.80,tag:'',img:'k3'},
+    ]},
+    {id:'drinks', label:'☕ Coffee & Drinks', items:[
+      {id:13,name:'Single Origin Espresso',desc:'Rotating single-origin roast from small farms. Served straight or with oat milk.',price:3.50,tag:'',img:'d1'},
+      {id:14,name:'Spiced Chai Latte',desc:'House-made chai concentrate with steamed milk. Warm, spiced and deeply comforting.',price:4.20,tag:'Favourite',img:'d2'},
+      {id:15,name:'Iced Brown Sugar Oat Latte',desc:'Cold brew espresso, oat milk and house-made brown sugar syrup over ice.',price:5.00,tag:'New',img:'d3'},
+    ]},
+  ]
+};
+let activeTab='breads';
+
+function renderCats(){
+  const el=document.getElementById('menuCats');
+  el.innerHTML=menuData.categories.map(c=>`
+    <button class="cat-btn ${c.id===activeTab?'active':''}" onclick="switchTab('${c.id}',this)">${c.label}</button>
+  `).join('');
+}
+function switchTab(id,btn){
+  activeTab=id;
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderMenu(id);
+}
+function renderMenu(catId){
+  const cat=menuData.categories.find(c=>c.id===catId);
+  const grid=document.getElementById('menuGrid');
+  grid.classList.remove('on');
+  grid.innerHTML=cat.items.map(item=>`
+    <div class="menu-card">
+      <div class="mc-img">
+        <img src="${menuImgs[item.img]}" alt="${item.name}" loading="lazy"/>
+        ${item.tag?`<div class="mc-badge"><span class="tag">${item.tag}</span></div>`:''}
+      </div>
+      <div class="mc-body">
+        <div class="mc-top">
+          <div class="mc-name">${item.name}</div>
+          <div class="mc-price">$${item.price.toFixed(2)}</div>
+        </div>
+        <p class="mc-desc">${item.desc}</p>
+        <div class="mc-footer">
+          <span></span>
+          <button class="add-btn" onclick='addToCart(${JSON.stringify(item).replace(/'/g,"\\'")})'> + Add to Basket</button>
+        </div>
+      </div>
+    </div>`).join('');
+  setTimeout(()=>grid.classList.add('on'),50);
+}
+renderCats(); renderMenu(activeTab);
+
+// ── CART ──────────────────────────────────────────────────────
+let cart=[];
+function addToCart(item){
+  const ex=cart.find(c=>c.id===item.id);
+  if(ex) ex.qty++;
+  else cart.push({...item,qty:1});
+  updateCartUI();
+  document.getElementById('cart-btn').style.display='flex';
+  showToast('Added to Basket 🧺',`${item.name} added — $${item.price.toFixed(2)}`);
+}
+function updateCartUI(){
+  const total=cart.reduce((s,c)=>s+c.price*c.qty,0);
+  document.getElementById('cart-count').textContent=cart.reduce((s,c)=>s+c.qty,0);
+  document.getElementById('cart-total').textContent='$'+total.toFixed(2);
+  const list=document.getElementById('cart-list');
+  if(!cart.length){
+    list.innerHTML='<div class="cart-empty"><div class="cart-empty-icon">🧁</div>Your basket is empty.<br>Add something delicious!</div>';
+    return;
+  }
+  list.innerHTML=cart.map((c,i)=>`
+    <div class="cart-item">
+      <div>
+        <div class="ci-name">${c.name}</div>
+        <div class="ci-qty">
+          <button class="qty-btn" onclick="changeQty(${i},-1)">−</button>
+          <span>${c.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${i},1)">+</button>
+        </div>
+      </div>
+      <div class="ci-price">$${(c.price*c.qty).toFixed(2)}</div>
+    </div>`).join('');
+}
+function changeQty(i,d){
+  cart[i].qty+=d;
+  if(cart[i].qty<=0) cart.splice(i,1);
+  updateCartUI();
+  if(!cart.length) document.getElementById('cart-btn').style.display='none';
+}
+function openCart(){ document.getElementById('cart-panel').classList.add('open'); document.getElementById('overlay').classList.add('on'); document.body.style.overflow='hidden'; }
+function closeCart(){ document.getElementById('cart-panel').classList.remove('open'); document.getElementById('overlay').classList.remove('on'); document.body.style.overflow=''; }
+function placeOrder(){
+  if(!cart.length) return showToast('Empty Basket','Add items before placing an order.');
+  const name=document.getElementById('c-name').value.trim();
+  if(!name) return showToast('Name Required','Please enter your name.');
+  showToast('Order Placed! 🎉',`Thanks ${name}! Your order will be ready for pickup. We'll confirm by phone.`);
+  cart=[]; updateCartUI(); closeCart();
+  document.getElementById('cart-btn').style.display='none';
+}
+
+// ── ORDER FORM ─────────────────────────────────────────────────
+async function submitOrder(e){
+  e.preventDefault();
+  const btn=document.getElementById('orderSubmit');
+  btn.disabled=true; btn.textContent='Placing Order...';
+  const fd=new FormData(e.target);
+  const body=Object.fromEntries(fd.entries());
+  await new Promise(r=>setTimeout(r,1200));
+  showToast('Order Received! 🥐',`Thank you ${body.name}! We'll have it ready for pickup on ${body.date} at ${body.time}.`);
+  e.target.reset();
+  btn.disabled=false; btn.textContent='Place My Order 🥐';
+}
+
+// ── TESTIMONIALS ───────────────────────────────────────────────
+const testData=[
+  {text:'The sourdough here changed my life. I drove 40 minutes every Saturday for six months. Then I moved nearby. Planned.',name:'Sarah K.',role:'Loyal Customer',av:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80'},
+  {text:"Ordered a birthday cake with 48 hours notice — they knocked it out of the park. My daughter said it was the best cake she'd ever had. High praise from a 7-year-old.",name:'James T.',role:'Dad & Cake Fan',av:'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80'},
+  {text:"I was a 'bread from the supermarket' person my whole life. Then someone brought a Crumble loaf to our office. Now I won't go back. It's not even close.",name:'Mia L.',role:'First-Time Convert',av:'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80'},
+  {text:'The cinnamon rolls are absolutely sinful. I tried to make them at home from a recipe and gave up. Some things should just be left to the experts.',name:'Dan R.',role:'Pastry Devotee',av:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80'},
+  {text:"I cater small events and Crumble & Co. is my secret weapon. The focaccia, the pastries, the bread boards — every guest asks where it's from.",name:'Priya M.',role:'Event Stylist',av:'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80'},
+];
+(function buildTests(){
+  const track=document.getElementById('testTrack');
+  const all=[...testData,...testData];
+  all.forEach(t=>{
+    track.innerHTML+=`
+      <div class="test-card">
+        <div class="tc-stars">★ ★ ★ ★ ★</div>
+        <div class="tc-qmark">"</div>
+        <p class="tc-text">${t.text}</p>
+        <div class="tc-author">
+          <div class="tc-av"><img src="${t.av}" alt="${t.name}" loading="lazy"/></div>
+          <div><div class="tc-name">${t.name}</div><div class="tc-role">${t.role}</div></div>
+        </div>
+      </div>`;
+  });
+})();
+
+// ── TOAST ──────────────────────────────────────────────────────
+let toastTimer;
+function showToast(title,msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toast-title').textContent=title;
+  document.getElementById('toast-msg').textContent=msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),4800);
+}
+
+// ── DATE MIN ────────────────────────────────────────────────────
+const di=document.querySelector('input[type="date"]');
+if(di){ const d=new Date(); d.setDate(d.getDate()+1); di.min=d.toISOString().split('T')[0]; }
+</script>
+</body>
+</html>
