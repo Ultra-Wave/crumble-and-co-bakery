@@ -137,7 +137,7 @@ nav.scrolled{background:rgba(253,248,240,.96);backdrop-filter:blur(16px);padding
    HERO
    ============================================================ */
 #hero{min-height:100svh;position:relative;display:flex;align-items:center;overflow:hidden;background:var(--cream)}
-.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1800&q=80');background-size:cover;background-position:center 30%;transform:scale(1.07);animation:heroZoom 14s ease forwards}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?w=1800&q=85');background-size:cover;background-position:center 30%;transform:scale(1.07);animation:heroZoom 14s ease forwards}
 .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,rgba(253,248,240,.97) 0%,rgba(253,248,240,.88) 38%,rgba(253,248,240,.35) 70%,rgba(253,248,240,.1) 100%)}
 @keyframes heroZoom{from{transform:scale(1.07)}to{transform:scale(1)}}
 /* Grain texture overlay */
@@ -561,10 +561,10 @@ footer{background:var(--bark);padding:5rem 5rem 3rem;border-top:1px solid rgba(2
     <div class="about-img-wrap reveal-l">
       <div class="about-corner">🌾</div>
       <div class="about-img-main">
-        <img src="https://images.unsplash.com/photo-1556217477-d325251ece38?w=800&q=80" alt="Baker at work" loading="lazy"/>
+        <img src="https://images.unsplash.com/photo-1517433367423-c7e5b0f35086?w=800&q=85" alt="Baker at work" loading="lazy"/>
       </div>
       <div class="about-img-float">
-        <img src="https://images.unsplash.com/photo-1586444248879-bc604cbd555a?w=400&q=80" alt="Fresh bread" loading="lazy"/>
+        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500&q=85" alt="Fresh bread" loading="lazy"/>
       </div>
     </div>
     <div class="reveal-r">
@@ -679,12 +679,12 @@ footer{background:var(--bark);padding:5rem 5rem 3rem;border-top:1px solid rgba(2
     <div class="divider"><span class="divider-icon">📸</span></div>
   </div>
   <div class="gal-grid">
-    <div class="gi"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&q=80" alt="Artisan bread" loading="lazy"/><div class="gi-ov"><span class="gi-label">Morning Loaves</span></div></div>
-    <div class="gi"><img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=700&q=80" alt="Croissants" loading="lazy"/><div class="gi-ov"><span class="gi-label">Butter Croissants</span></div></div>
-    <div class="gi"><img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=700&q=80" alt="Cakes" loading="lazy"/><div class="gi-ov"><span class="gi-label">Celebration Cakes</span></div></div>
-    <div class="gi"><img src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=600&q=80" alt="Pastries" loading="lazy"/><div class="gi-ov"><span class="gi-label">Pastry Selection</span></div></div>
-    <div class="gi"><img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600&q=80" alt="Cookies" loading="lazy"/><div class="gi-ov"><span class="gi-label">Cookies & Biscuits</span></div></div>
-    <div class="gi"><img src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=600&q=80" alt="Bakery interior" loading="lazy"/><div class="gi-ov"><span class="gi-label">The Bakery</span></div></div>
+    <div class="gi"><img src="https://images.unsplash.com/photo-1586444248879-bc604cbd555a?w=900&q=85" alt="Artisan bread" loading="lazy"/><div class="gi-ov"><span class="gi-label">Morning Loaves</span></div></div>
+    <div class="gi"><img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=700&q=85" alt="Croissants" loading="lazy"/><div class="gi-ov"><span class="gi-label">Butter Croissants</span></div></div>
+    <div class="gi"><img src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=700&q=85" alt="Cakes" loading="lazy"/><div class="gi-ov"><span class="gi-label">Celebration Cakes</span></div></div>
+    <div class="gi"><img src="https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=600&q=85" alt="Pastries" loading="lazy"/><div class="gi-ov"><span class="gi-label">Fresh Pastries</span></div></div>
+    <div class="gi"><img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=600&q=85" alt="Cookies" loading="lazy"/><div class="gi-ov"><span class="gi-label">Cookies & Biscuits</span></div></div>
+    <div class="gi"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=85" alt="Coffee" loading="lazy"/><div class="gi-ov"><span class="gi-label">Coffee & Warmth</span></div></div>
   </div>
 </section>
 
@@ -856,14 +856,6 @@ document.querySelectorAll('.ml').forEach(l=>{
 });
 
 // ── SCROLL REVEAL ─────────────────────────────────────────────
-new IntersectionObserver(entries=>{
-  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('on'); });
-},{threshold:.1,rootMargin:'0px 0px -50px 0px'})
-.observe.call(
-  new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('on'); }); },{threshold:.1,rootMargin:'0px 0px -50px 0px'}),
-  ...document.querySelectorAll('.reveal,.reveal-l,.reveal-r,.stag')
-);
-// Simpler version:
 const ro = new IntersectionObserver(entries=>{
   entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('on'); });
 },{threshold:.1,rootMargin:'0px 0px -50px 0px'});
@@ -899,21 +891,21 @@ allItems.forEach(item=>{
 
 // ── MENU DATA ──────────────────────────────────────────────────
 const menuImgs = {
-  s1:'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&q=75',
-  s2:'https://images.unsplash.com/photo-1586444248879-bc604cbd555a?w=500&q=75',
-  s3:'https://images.unsplash.com/photo-1574085733277-851d9d856a3a?w=500&q=75',
-  p1:'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=500&q=75',
-  p2:'https://images.unsplash.com/photo-1530610476181-d83430b64dcd?w=500&q=75',
-  p3:'https://images.unsplash.com/photo-1620921592619-652411a4f57f?w=500&q=75',
-  c1:'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=500&q=75',
-  c2:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&q=75',
-  c3:'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=500&q=75',
-  k1:'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500&q=75',
-  k2:'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=500&q=75',
-  k3:'https://images.unsplash.com/photo-1590080876351-41ade3b2e21d?w=500&q=75',
-  d1:'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=500&q=75',
-  d2:'https://images.unsplash.com/photo-1460306855393-0faed7be1dc9?w=500&q=75',
-  d3:'https://images.unsplash.com/photo-1547592180-85f173990554?w=500&q=75',
+  s1:'https://images.unsplash.com/photo-1586444248879-bc604cbd555a?w=600&q=80',
+  s2:'https://images.unsplash.com/photo-1549931319-a545dcf3bc7b?w=600&q=80',
+  s3:'https://images.unsplash.com/photo-1598373182133-52452f7691ef?w=600&q=80',
+  p1:'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&q=80',
+  p2:'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=600&q=80',
+  p3:'https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=600&q=80',
+  c1:'https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=600&q=80',
+  c2:'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=600&q=80',
+  c3:'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=600&q=80',
+  k1:'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=600&q=80',
+  k2:'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600&q=80',
+  k3:'https://images.unsplash.com/photo-1548365328-8c6db3220e4c?w=600&q=80',
+  d1:'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80',
+  d2:'https://images.unsplash.com/photo-1561336313-0bd5e0b27ec8?w=600&q=80',
+  d3:'https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=600&q=80',
 };
 const menuData = {
   categories:[
@@ -1085,6 +1077,25 @@ function showToast(title,msg){
 // ── DATE MIN ────────────────────────────────────────────────────
 const di=document.querySelector('input[type="date"]');
 if(di){ const d=new Date(); d.setDate(d.getDate()+1); di.min=d.toISOString().split('T')[0]; }
+
+// ── IMAGE FALLBACKS ────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', ()=>{
+  document.querySelectorAll('img').forEach(img => {
+    img.addEventListener('error', function() {
+      this.style.display = 'none';
+      const wrap = this.closest('.mc-img,.gi,.about-img-main,.about-img-float,.tc-av');
+      if (wrap && !wrap.querySelector('.img-fallback')) {
+        wrap.style.background = 'linear-gradient(135deg,#ede0c4,rgba(201,148,58,.15))';
+        const fb = document.createElement('div');
+        fb.className = 'img-fallback';
+        fb.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:3rem;opacity:.35;';
+        fb.textContent = '🥐';
+        wrap.style.position = 'relative';
+        wrap.appendChild(fb);
+      }
+    });
+  });
+});
 </script>
 </body>
 </html>
